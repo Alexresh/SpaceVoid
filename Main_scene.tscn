@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://do45bndwp7ufu"]
+[gd_scene load_steps=13 format=3 uid="uid://do45bndwp7ufu"]
 
 [ext_resource type="Script" path="res://Player_script.gd" id="1_pcmxo"]
 [ext_resource type="Script" path="res://Main_scene.gd" id="1_wh51s"]
+[ext_resource type="AudioStream" uid="uid://bclrokkjl0gin" path="res://sounds/00722.mp3" id="3_v2fty"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j7guf"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -48,12 +49,13 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1xn3t")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedLabel", "FPS")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedLabel", "FPS", "Move_player")]
 transform = Transform3D(1.00292, 0, 0, 0, 1.00292, 0, 0, 0, 1.00292, 0, 0, 2.4731)
 motion_mode = 1
 script = ExtResource("1_pcmxo")
 SpeedLabel = NodePath("../CanvasLayer/SpeedLabel")
 FPS = NodePath("../CanvasLayer/FPS")
+Move_player = NodePath("../AudioStreamPlayer")
 
 [node name="Player_texture" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(0.518529, 0, 0, 0, 0.531536, 0, 0, 0, 0.512106, 0, 0, 0)
@@ -75,6 +77,10 @@ light_color = Color(1, 1, 0.831373, 1)
 light_energy = 2.0
 spot_range = 9.423
 spot_angle = 14.8899
+
+[node name="Rotate_Center" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.51226, 0, 0, 0, 0.491, 0, 0, 0, 0.381069, 0, 0, 0)
+mesh = SubResource("BoxMesh_a1v73")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -182,5 +188,8 @@ theme_override_font_sizes/normal_font_size = 10
 [node name="FPS" type="RichTextLabel" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_v2fty")
 
 [connection signal="pressed" from="CanvasLayer/ExitBtn" to="." method="_on_button_pressed"]
