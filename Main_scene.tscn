@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Player_script.gd" id="1_pcmxo"]
 [ext_resource type="Script" path="res://Main_scene.gd" id="1_wh51s"]
+[ext_resource type="Script" path="res://Menu.gd" id="3_h5j25"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j7guf"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -41,13 +42,10 @@ height = 10
 fill_from = Vector2(0, 0.579151)
 fill_to = Vector2(1, 0.46332)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdkrh"]
-bg_color = Color(0.811369, 0.533935, 1.54018e-06, 1)
-
-[node name="Main_scene" type="Node3D" node_paths=PackedStringArray("MenuContainer")]
+[node name="Main_scene" type="Node3D" node_paths=PackedStringArray("Menu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.267792)
 script = ExtResource("1_wh51s")
-MenuContainer = NodePath("CanvasLayer/MenuContainer")
+Menu = NodePath("CanvasLayer/Menu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.663926, -0.647612, 0.373899, 0, 0.5, 0.866025, -0.747798, -0.574977, 0.331963, 1.80413, 0, 5.7681)
@@ -62,12 +60,12 @@ environment = SubResource("Environment_1xn3t")
 transform = Transform3D(1.00292, 0, 0, 0, 1.00292, 0, 0, 0, 1.00292, 0, 0, 2.4731)
 motion_mode = 1
 script = ExtResource("1_pcmxo")
-SpeedBarHorizontalForward = NodePath("../CanvasLayer/SpeedBarHorizontalForward")
-SpeedBarHorizontalBackward = NodePath("../CanvasLayer/SpeedBarHorizontalBackward")
-SpeedBarHorizontalRight = NodePath("../CanvasLayer/SpeedBarHorizontalRight")
-SpeedBarHorizontalLeft = NodePath("../CanvasLayer/SpeedBarHorizontalLeft")
-SpeedBarHorizontalUp = NodePath("../CanvasLayer/SpeedBarHorizontalUp")
-SpeedBarHorizontalDown = NodePath("../CanvasLayer/SpeedBarHorizontalDown")
+SpeedBarHorizontalForward = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalForward")
+SpeedBarHorizontalBackward = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalBackward")
+SpeedBarHorizontalRight = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalRight")
+SpeedBarHorizontalLeft = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalLeft")
+SpeedBarHorizontalUp = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalUp")
+SpeedBarHorizontalDown = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalDown")
 FPS = NodePath("../CanvasLayer/FPS")
 
 [node name="Player_texture" type="MeshInstance3D" parent="Player"]
@@ -173,113 +171,93 @@ shape = SubResource("BoxShape3D_nd6hr")
 offset_right = 469.0
 offset_bottom = 40.0
 
-[node name="SpeedBarHorizontalForward" type="TextureProgressBar" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="Menu" type="Control" parent="CanvasLayer"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 117.0
-offset_top = -99.0
-offset_right = 217.0
-offset_bottom = -89.0
-grow_vertical = 0
-rotation = 2.35619
-max_value = 30.0
-value = 30.0
-rounded = true
-texture_progress = SubResource("GradientTexture2D_6i7qq")
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_h5j25")
 
-[node name="SpeedBarHorizontalBackward" type="TextureProgressBar" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 119.0
-offset_top = -115.0
-offset_right = 219.0
-offset_bottom = -105.0
-grow_vertical = 0
-rotation = -0.785398
-max_value = 30.0
-value = 30.0
-rounded = true
-texture_progress = SubResource("GradientTexture2D_6i7qq")
-
-[node name="MenuContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="MenuContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.5
-offset_top = -20.0
-offset_right = 72.5
-offset_bottom = 20.0
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ResumeBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+[node name="Resume" type="Button" parent="CanvasLayer/Menu/MenuContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
-text = "Resume
-"
+text = "Resume"
 
-[node name="OptionsBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+[node name="Options" type="Button" parent="CanvasLayer/Menu/MenuContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
 text = "Options"
 
-[node name="ExitBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+[node name="Exit" type="Button" parent="CanvasLayer/Menu/MenuContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
 text = "Exit"
 
-[node name="SpeedBarHorizontalRight" type="TextureProgressBar" parent="CanvasLayer"]
+[node name="OptionsContainer" type="HBoxContainer" parent="CanvasLayer/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.5
+offset_top = -15.5
+offset_right = 88.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Labels" type="VBoxContainer" parent="CanvasLayer/Menu/OptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FullScreen" type="Label" parent="CanvasLayer/Menu/OptionsContainer/Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.00749996, 0.15, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+text = "FullScreen"
+
+[node name="Values" type="VBoxContainer" parent="CanvasLayer/Menu/OptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FullScreenCheck" type="CheckButton" parent="CanvasLayer/Menu/OptionsContainer/Values"]
+layout_mode = 2
+
+[node name="OptionsBackButton" type="Button" parent="CanvasLayer/Menu/OptionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back"
+
+[node name="SpeedBars" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 123.0
-offset_top = -112.0
-offset_right = 223.0
-offset_bottom = -102.0
+offset_top = -231.0
+offset_right = 246.0
 grow_vertical = 0
-max_value = 30.0
-value = 30.0
-rounded = true
-texture_progress = SubResource("GradientTexture2D_6i7qq")
 
-[node name="SpeedBarHorizontalLeft" type="TextureProgressBar" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 113.0
-offset_top = -102.0
-offset_right = 213.0
-offset_bottom = -92.0
-grow_vertical = 0
-rotation = 3.14159
-max_value = 30.0
-value = 30.0
-rounded = true
-texture_progress = SubResource("GradientTexture2D_6i7qq")
-
-[node name="SpeedBarHorizontalUp" type="TextureProgressBar" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 123.0
-offset_top = -102.0
-offset_right = 223.0
-offset_bottom = -92.0
-grow_vertical = 0
-rotation = 1.5708
-max_value = 30.0
-value = 30.0
-rounded = true
-texture_progress = SubResource("GradientTexture2D_6i7qq")
-
-[node name="SpeedBarHorizontalDown" type="TextureProgressBar" parent="CanvasLayer"]
+[node name="SpeedBarHorizontalDown" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -294,5 +272,88 @@ value = 30.0
 rounded = true
 texture_progress = SubResource("GradientTexture2D_6i7qq")
 
-[connection signal="pressed" from="CanvasLayer/MenuContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuContainer/ExitBtn" to="." method="_on_exit_button_pressed"]
+[node name="SpeedBarHorizontalForward" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 117.0
+offset_top = -99.0
+offset_right = 217.0
+offset_bottom = -89.0
+grow_vertical = 0
+rotation = 2.35619
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalBackward" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 119.0
+offset_top = -115.0
+offset_right = 219.0
+offset_bottom = -105.0
+grow_vertical = 0
+rotation = -0.785398
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalRight" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 123.0
+offset_top = -112.0
+offset_right = 223.0
+offset_bottom = -102.0
+grow_vertical = 0
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalLeft" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = -102.0
+offset_right = 213.0
+offset_bottom = -92.0
+grow_vertical = 0
+rotation = 3.14159
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalUp" type="TextureProgressBar" parent="CanvasLayer/SpeedBars"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 123.0
+offset_top = -102.0
+offset_right = 223.0
+offset_bottom = -92.0
+grow_vertical = 0
+rotation = 1.5708
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="pressed" from="CanvasLayer/Menu/MenuContainer/Resume" to="CanvasLayer/Menu" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/MenuContainer/Options" to="CanvasLayer/Menu" method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/MenuContainer/Exit" to="CanvasLayer/Menu" method="_on_exit_pressed"]
+[connection signal="toggled" from="CanvasLayer/Menu/OptionsContainer/Values/FullScreenCheck" to="CanvasLayer/Menu" method="_on_check_button_toggled"]
+[connection signal="pressed" from="CanvasLayer/Menu/OptionsContainer/OptionsBackButton" to="CanvasLayer/Menu" method="_on_options_back_button_pressed"]
