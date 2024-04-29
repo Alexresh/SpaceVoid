@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://do45bndwp7ufu"]
+[gd_scene load_steps=15 format=3 uid="uid://do45bndwp7ufu"]
 
 [ext_resource type="Script" path="res://Player_script.gd" id="1_pcmxo"]
 [ext_resource type="Script" path="res://Main_scene.gd" id="1_wh51s"]
+[ext_resource type="Theme" uid="uid://qi2wtak3apft" path="res://standart_theme.tres" id="3_esu07"]
 [ext_resource type="Script" path="res://Menu.gd" id="3_h5j25"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j7guf"]
@@ -179,6 +180,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_esu07")
 script = ExtResource("3_h5j25")
 
 [node name="MenuContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
@@ -228,9 +230,6 @@ size_flags_vertical = 4
 
 [node name="FullScreen" type="Label" parent="CanvasLayer/Menu/OptionsContainer/Labels"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.00749996, 0.15, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -1
 text = "FullScreen"
 
 [node name="Values" type="VBoxContainer" parent="CanvasLayer/Menu/OptionsContainer"]
