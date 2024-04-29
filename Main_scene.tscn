@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://do45bndwp7ufu"]
+[gd_scene load_steps=14 format=3 uid="uid://do45bndwp7ufu"]
 
 [ext_resource type="Script" path="res://Player_script.gd" id="1_pcmxo"]
 [ext_resource type="Script" path="res://Main_scene.gd" id="1_wh51s"]
@@ -31,13 +31,23 @@ fog_light_energy = 0.21
 [sub_resource type="BoxShape3D" id="BoxShape3D_4048t"]
 size = Vector3(0.542358, 0.55426, 0.557678)
 
+[sub_resource type="Gradient" id="Gradient_yo5d1"]
+colors = PackedColorArray(0.403922, 0.913725, 0, 1, 1, 0.552941, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6i7qq"]
+gradient = SubResource("Gradient_yo5d1")
+width = 100
+height = 10
+fill_from = Vector2(0, 0.579151)
+fill_to = Vector2(1, 0.46332)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdkrh"]
 bg_color = Color(0.811369, 0.533935, 1.54018e-06, 1)
 
-[node name="Main_scene" type="Node3D" node_paths=PackedStringArray("ExitBtn")]
+[node name="Main_scene" type="Node3D" node_paths=PackedStringArray("MenuContainer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.267792)
 script = ExtResource("1_wh51s")
-ExitBtn = NodePath("CanvasLayer/ExitBtn")
+MenuContainer = NodePath("CanvasLayer/MenuContainer")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.663926, -0.647612, 0.373899, 0, 0.5, 0.866025, -0.747798, -0.574977, 0.331963, 1.80413, 0, 5.7681)
@@ -48,11 +58,16 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1xn3t")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedLabel", "FPS")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedBarHorizontalForward", "SpeedBarHorizontalBackward", "SpeedBarHorizontalRight", "SpeedBarHorizontalLeft", "SpeedBarHorizontalUp", "SpeedBarHorizontalDown", "FPS")]
 transform = Transform3D(1.00292, 0, 0, 0, 1.00292, 0, 0, 0, 1.00292, 0, 0, 2.4731)
 motion_mode = 1
 script = ExtResource("1_pcmxo")
-SpeedLabel = NodePath("../CanvasLayer/SpeedLabel")
+SpeedBarHorizontalForward = NodePath("../CanvasLayer/SpeedBarHorizontalForward")
+SpeedBarHorizontalBackward = NodePath("../CanvasLayer/SpeedBarHorizontalBackward")
+SpeedBarHorizontalRight = NodePath("../CanvasLayer/SpeedBarHorizontalRight")
+SpeedBarHorizontalLeft = NodePath("../CanvasLayer/SpeedBarHorizontalLeft")
+SpeedBarHorizontalUp = NodePath("../CanvasLayer/SpeedBarHorizontalUp")
+SpeedBarHorizontalDown = NodePath("../CanvasLayer/SpeedBarHorizontalDown")
 FPS = NodePath("../CanvasLayer/FPS")
 
 [node name="Player_texture" type="MeshInstance3D" parent="Player"]
@@ -154,33 +169,130 @@ shape = SubResource("BoxShape3D_nd6hr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ExitBtn" type="Button" parent="CanvasLayer"]
+[node name="FPS" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 469.0
+offset_bottom = 40.0
+
+[node name="SpeedBarHorizontalForward" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 117.0
+offset_top = -99.0
+offset_right = 217.0
+offset_bottom = -89.0
+grow_vertical = 0
+rotation = 2.35619
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalBackward" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 119.0
+offset_top = -115.0
+offset_right = 219.0
+offset_bottom = -105.0
+grow_vertical = 0
+rotation = -0.785398
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="MenuContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -54.0
-offset_top = 74.0
-offset_right = 54.0
-offset_bottom = 113.0
+offset_left = -72.5
+offset_top = -20.0
+offset_right = 72.5
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ResumeBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
-text = "exit"
+text = "Resume
+"
 
-[node name="SpeedLabel" type="RichTextLabel" parent="CanvasLayer"]
+[node name="OptionsBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
+text = "Options"
+
+[node name="ExitBtn" type="Button" parent="CanvasLayer/MenuContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_kdkrh")
+text = "Exit"
+
+[node name="SpeedBarHorizontalRight" type="TextureProgressBar" parent="CanvasLayer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -15.0
-offset_right = 77.0
+offset_left = 123.0
+offset_top = -112.0
+offset_right = 223.0
+offset_bottom = -102.0
 grow_vertical = 0
-theme_override_font_sizes/normal_font_size = 10
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
 
-[node name="FPS" type="RichTextLabel" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="SpeedBarHorizontalLeft" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = -102.0
+offset_right = 213.0
+offset_bottom = -92.0
+grow_vertical = 0
+rotation = 3.14159
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
 
-[connection signal="pressed" from="CanvasLayer/ExitBtn" to="." method="_on_button_pressed"]
+[node name="SpeedBarHorizontalUp" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 123.0
+offset_top = -102.0
+offset_right = 223.0
+offset_bottom = -92.0
+grow_vertical = 0
+rotation = 1.5708
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[node name="SpeedBarHorizontalDown" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = -112.0
+offset_right = 213.0
+offset_bottom = -102.0
+grow_vertical = 0
+rotation = 4.71239
+max_value = 30.0
+value = 30.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_6i7qq")
+
+[connection signal="pressed" from="CanvasLayer/MenuContainer/ResumeBtn" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuContainer/ExitBtn" to="." method="_on_exit_button_pressed"]
