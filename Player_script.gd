@@ -5,7 +5,13 @@ const CAMERA_VERTICAL_SENSIVITY = 0.1
 const CAMERA_HORIZONTAL_SENSIVITY = 0.1
 const ROTATION_SPEED = 0.05
 
-@export var SpeedLabel: RichTextLabel
+@export var SpeedBarHorizontalForward: TextureProgressBar
+@export var SpeedBarHorizontalBackward: TextureProgressBar
+@export var SpeedBarHorizontalRight: TextureProgressBar
+@export var SpeedBarHorizontalLeft: TextureProgressBar
+@export var SpeedBarHorizontalUp: TextureProgressBar
+@export var SpeedBarHorizontalDown: TextureProgressBar
+
 @export var FPS: RichTextLabel
 
 func _ready():
@@ -30,10 +36,26 @@ func _physics_process(delta):
 		velocity += get_basis() * Vector3(0, 0, SPEED)
 	if (Input.is_action_pressed("stop") && (velocity.length() <= 0.5)):
 		velocity = Vector3.ZERO
-	SpeedLabel.text = "Speed: " + str(velocity.length()).substr(0, 4)
+	var horizontal_speed_forward = global_transform.basis.z.dot(velocity)#(transform.basis * get_real_velocity()).z
+	var horizontal_speed_side = global_transform.basis.x.dot(velocity)#(transform.basis * get_real_velocity()).x
+	var vertical_speed = -global_transform.basis.y.dot(velocity)
+	
+	SpeedBarHorizontalForward.value = horizontal_speed_forward if horizontal_speed_forward > 0 else 0
+	SpeedBarHorizontalBackward.value = abs(horizontal_speed_forward) if horizontal_speed_forward < 0 else 0
+	
+	SpeedBarHorizontalRight.value = horizontal_speed_side if horizontal_speed_side > 0 else 0
+	SpeedBarHorizontalLeft.value = abs(horizontal_speed_side) if horizontal_speed_side < 0 else 0
+	
+	SpeedBarHorizontalUp.value = vertical_speed if vertical_speed > 0 else 0
+	SpeedBarHorizontalDown.value = abs(vertical_speed) if vertical_speed < 0 else 0
+	
+	
 	FPS.text = str(Engine.get_frames_per_second())
+	
 
-	move_and_slide()
+	if(move_and_slide()):
+		#вставить звук удара
+		velocity = Vector3.ZERO
 	
 func _unhandled_input(event):
 	
