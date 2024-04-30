@@ -11,6 +11,7 @@ const ROTATION_SPEED = 0.05
 @export var SpeedBarHorizontalLeft: TextureProgressBar
 @export var SpeedBarHorizontalUp: TextureProgressBar
 @export var SpeedBarHorizontalDown: TextureProgressBar
+@export var Camera: Camera3D
 
 @export var FPS: RichTextLabel
 
@@ -36,6 +37,12 @@ func _physics_process(delta):
 		velocity += get_basis() * Vector3(0, 0, SPEED)
 	if (Input.is_action_pressed("stop") && (velocity.length() <= 0.5)):
 		velocity = Vector3.ZERO
+	if(Input.is_action_pressed("zoom")):
+		Camera.fov = lerp(Camera.fov, 10.0, 0.08)
+	else:
+		Camera.fov = lerp(Camera.fov, 75.0, 0.08)
+		
+		
 	var horizontal_speed_forward = global_transform.basis.z.dot(velocity)#(transform.basis * get_real_velocity()).z
 	var horizontal_speed_side = global_transform.basis.x.dot(velocity)#(transform.basis * get_real_velocity()).x
 	var vertical_speed = -global_transform.basis.y.dot(velocity)

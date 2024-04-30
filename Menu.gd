@@ -2,6 +2,7 @@ extends Control
 
 @onready var Options = $OptionsContainer
 @onready var Menu = $MenuContainer
+@export var MainScene: Node3D
 
 
 func _ready():
@@ -19,12 +20,7 @@ func _on_exit_pressed():
 
 
 func _on_check_button_toggled(toggled_on):
-	if(toggled_on):
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		
-	
+	MainScene.setFullScreen(toggled_on)
 
 
 func _on_options_pressed():
