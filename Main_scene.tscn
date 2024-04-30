@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://do45bndwp7ufu"]
+[gd_scene load_steps=16 format=3 uid="uid://do45bndwp7ufu"]
 
 [ext_resource type="Script" path="res://Player_script.gd" id="1_pcmxo"]
 [ext_resource type="Script" path="res://Main_scene.gd" id="1_wh51s"]
 [ext_resource type="Texture2D" uid="uid://v1dfg3b2hc4y" path="res://Skybox/HDR_multi_nebulae.hdr" id="2_ye25l"]
 [ext_resource type="Theme" uid="uid://qi2wtak3apft" path="res://standart_theme.tres" id="3_esu07"]
 [ext_resource type="Script" path="res://Menu.gd" id="3_h5j25"]
+[ext_resource type="AudioStream" uid="uid://bvp5v8gynccnh" path="res://Sounds/Jetpack2.mp3" id="4_tutwf"]
 [ext_resource type="PackedScene" uid="uid://3uwqbs5t0saq" path="res://Models/stand.glb" id="6_wty1e"]
 [ext_resource type="Script" path="res://BaseGenerator.gd" id="7_vkocd"]
 
@@ -40,7 +41,6 @@ fill_from = Vector2(0, 0.579151)
 fill_to = Vector2(1, 0.46332)
 
 [node name="Main_scene" type="Node3D" node_paths=PackedStringArray("Menu", "BaseGenerator")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.267792)
 script = ExtResource("1_wh51s")
 Menu = NodePath("CanvasLayer/Menu")
 BaseGenerator = NodePath("BaseGenerator")
@@ -54,8 +54,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1xn3t")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedBarHorizontalForward", "SpeedBarHorizontalBackward", "SpeedBarHorizontalRight", "SpeedBarHorizontalLeft", "SpeedBarHorizontalUp", "SpeedBarHorizontalDown", "Camera", "FPS")]
-transform = Transform3D(1.00292, 0, 0, 0, 1.00292, 0, 0, 0, 1.00292, 0, 0, 2.4731)
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("SpeedBarHorizontalForward", "SpeedBarHorizontalBackward", "SpeedBarHorizontalRight", "SpeedBarHorizontalLeft", "SpeedBarHorizontalUp", "SpeedBarHorizontalDown", "Camera", "Jetpack", "FPS")]
+transform = Transform3D(1.00292, 0, 0, 0, 1.00292, 0, 0, 0, 1.00292, 0, 1.2161, 2.4731)
 motion_mode = 1
 script = ExtResource("1_pcmxo")
 SpeedBarHorizontalForward = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalForward")
@@ -65,6 +65,7 @@ SpeedBarHorizontalLeft = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalLe
 SpeedBarHorizontalUp = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalUp")
 SpeedBarHorizontalDown = NodePath("../CanvasLayer/SpeedBars/SpeedBarHorizontalDown")
 Camera = NodePath("Player_head/Player_camera")
+Jetpack = NodePath("JetpackPlayer")
 FPS = NodePath("../CanvasLayer/FPS")
 
 [node name="Player_texture" type="MeshInstance3D" parent="Player"]
@@ -88,6 +89,14 @@ light_color = Color(1, 1, 0.831373, 1)
 light_energy = 2.0
 spot_range = 9.423
 spot_angle = 26.6573
+
+[node name="BoltSpawnPosition" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.441787, 0.44361, -1.30493)
+
+[node name="JetpackPlayer" type="AudioStreamPlayer3D" parent="Player"]
+transform = Transform3D(0.997088, 0, 0, 0, 0.997088, 0, 0, 0, 0.997088, 0, 0, 0.564196)
+stream = ExtResource("4_tutwf")
+bus = &"Jetpack"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

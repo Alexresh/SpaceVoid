@@ -33,7 +33,7 @@ func _on_ready():
 	Input.warp_mouse(Vector2(0,0))
 	read_data()
 	setParameters()
-	BaseGenerator.generate(10)
+	BaseGenerator.generate(20, 20)
 
 
 func save_data():

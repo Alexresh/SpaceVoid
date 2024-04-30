@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqf75fl8katnv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o7voy"]
+size = Vector3(5, 0.05, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1571p"]
+size = Vector3(5, 0.05, 5)
+
+[node name="2Side" type="Node3D"]
+
+[node name="Celling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_o7voy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Celling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Celling/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall1" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.62269e-08, -11.02, 0, 0.6, -4.817e-07, 0, 0, 0, -0.1, 2.221, 1.5, 2.248)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.62269e-08, -11.02, 0, 0.6, -4.817e-07, 0, 0, 0, -0.1, 2.221, 1.5, -2.2361)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.62269e-08, -11.02, 0, 0.6, -4.817e-07, 0, 0, 0, -0.1, -2.18609, 1.5, -2.2361)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.62269e-08, -11.02, 0, 0.6, -4.817e-07, 0, 0, 0, -0.1, 0.00767088, 1.5, 0.0997267)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall5/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.62269e-08, -11.02, 0, 0.6, -4.817e-07, 0, 0, 0, -0.1, -2.18609, 1.5, 2.23942)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")

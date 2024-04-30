@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpwb1p12d1hfq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o7voy"]
+size = Vector3(5, 0.05, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1571p"]
+size = Vector3(5, 0.05, 5)
+
+[node name="2Side" type="Node3D"]
+
+[node name="Celling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_o7voy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Celling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Celling/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall1" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.67514e-08, -1, 0, 0.612, -4.37114e-08, 0, 0, 0, 1, -2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="Wall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.67514e-08, -1, 0, 0.612, -4.37114e-08, 0, 0, 0, 1, 2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_o7voy")
+skeleton = NodePath("../Celling")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
+shape = SubResource("BoxShape3D_1571p")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.669216, 0.133619, 0.730955, -0.740408, 0.036751, 0.671152, 0.0628153, -0.990351, 0.123527, 2.25575, 3, 0)
+spot_range = 5.60131
+spot_angle = 39.9653
