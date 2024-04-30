@@ -18,3 +18,7 @@ func _process(delta):
 
 func _on_button_pressed():
 	get_tree().quit(0)
+
+
+func _on_area_3d_area_entered(area):
+	pass # Replace with function body.

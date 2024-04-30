@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://clbfn4hvxo3oc"]
+
+[ext_resource type="Script" path="res://RigidBody3D.gd" id="1_6gcrr"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_de3as"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y7x3w"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_id77m"]
+
+[node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("collision", "life_timer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.102649, -0.383252, 1.16835)
+mass = 0.1
+gravity_scale = 0.0
+script = ExtResource("1_6gcrr")
+collision = NodePath("CollisionShape3D")
+life_timer = NodePath("Timer2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_de3as")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_y7x3w")
+disabled = true
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_id77m")
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
